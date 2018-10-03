@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\naschirl\\source\\repos\\BankApp\\BankApp\\BankApp.csproj",
+      "projectUniqueName": "C:\\Users\\naschirl\\Source\\Repos\\Project2\\BankApp\\BankApp\\BankApp.csproj",
       "projectName": "BankApp",
-      "projectPath": "C:\\Users\\naschirl\\source\\repos\\BankApp\\BankApp\\BankApp.csproj",
+      "projectPath": "C:\\Users\\naschirl\\Source\\Repos\\Project2\\BankApp\\BankApp\\BankApp.csproj",
       "packagesPath": "C:\\Users\\naschirl\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\naschirl\\source\\repos\\BankApp\\BankApp\\obj\\",
+      "outputPath": "C:\\Users\\naschirl\\Source\\Repos\\Project2\\BankApp\\BankApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -39,6 +39,7 @@ namespace BankApp
 
                         var account = Bank.CreateAccount(emailAddress, accountType, ammount);
                         Console.WriteLine($"AN: {account.AccountNumber}, B: {account.Balance:C}, AT: {account.AccountType}");
+                        Console.WriteLine($"AN: {account.AccountNumber}, B: {account.Balance:C}, AT: {account.AccountType}");
                         break;
 
                     default:
