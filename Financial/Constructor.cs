@@ -17,7 +17,7 @@ namespace Financial
             };
             return account;
         }
-        public static InvestmentTracker CreateInvestment(int years, int income, int interest, int percentsaved, int)
+        public static InvestmentTracker CreateInvestment(int years, int income, int interest, int percentsaved)
         {
             var investment = new InvestmentTracker
             {
