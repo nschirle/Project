@@ -16,6 +16,10 @@ namespace Financial
         #endregion
 
         #region
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstName"></param>
         public Account(string firstName)
         {
             FirstName = firstName;

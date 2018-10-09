@@ -6,6 +6,10 @@ namespace Financial
 {
     class InvestmentTracker
     {
+
+        /// <summary>
+        /// these are the attributes of the InvestmentTracker class
+        /// </summary>
         public int YearsInPeriod { get; set; }
         public int Income { get; set; }
         public int Interest { get; set; }
