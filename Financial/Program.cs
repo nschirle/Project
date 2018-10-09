@@ -6,13 +6,9 @@ namespace Financial
     {
         static void Main(string[] args)
         {
-            var Account = new Account("nathan");
+            var Account = Constructor.CreateAccount("testc@test.com", "nathan", "schirle");
 
-            Console.WriteLine($"AN: {Account.AccountNumber}, B: {Account.FirstName}");
-
-            var Account2 = new Account("test");
-
-            Console.WriteLine($"AN: {Account2.AccountNumber}, B: {Account2.FirstName}");
+            Console.WriteLine($"AN: {Account.AccountNumber}, B: {Account.FirstName}, N: {Account.LastName}, em: {Account.EmailAddress}");
         }
     }
 }

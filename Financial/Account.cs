@@ -20,9 +20,8 @@ namespace Financial
         /// 
         /// </summary>
         /// <param name="firstName"></param>
-        public Account(string firstName)
+        public Account()
         {
-            FirstName = firstName;
             var guid = Guid.NewGuid();
             AccountNumber = guid.ToString();
             CreatedDate = DateTime.Now;
