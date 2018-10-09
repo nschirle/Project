@@ -15,15 +15,15 @@ namespace Financial
         public decimal Interest { get; set; }
         public decimal PercentOfSalarySaved { get; set; }
         public decimal TotalSaved { get; private set; }
-
+        public decimal[] yearsSaved { get; set; }
         public InvestmentTracker()
         {
-
+            
         }
 
         public void totalSaved(int yearsinperiod)
         {
-            
+
             var percentofSalary = (Income * (PercentOfSalarySaved / 100));
             var years = yearsinperiod;
             Console.WriteLine(percentofSalary);
@@ -34,7 +34,7 @@ namespace Financial
 
                 TotalSaved += (temp + percentofSalary);
                 Console.WriteLine(TotalSaved);
-                
+                yearsSaved[i] = TotalSaved;
 
             }
         }

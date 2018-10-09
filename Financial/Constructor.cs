@@ -17,15 +17,16 @@ namespace Financial
             };
             return account;
         }
-        public static InvestmentTracker CreateInvestment(int years, int income, int interest, int percentsaved)
+        public static InvestmentTracker CreateInvestment(int years, decimal income, decimal interest, decimal percentsaved)
         {
             var investment = new InvestmentTracker
             {
                 YearsInPeriod = years,
                 Income = income,
                 Interest = interest,
-                PercentOfSalarySaved = percentsaved
-            };
+                PercentOfSalarySaved = percentsaved,
+                yearsSaved = new decimal[years]
+        };
             return investment;
 
         }
