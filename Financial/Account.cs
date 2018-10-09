@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Financial
 {
-    class Class1
+    class Account
     {
     }
 }
