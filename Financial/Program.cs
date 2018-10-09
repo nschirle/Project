@@ -6,18 +6,13 @@ namespace Financial
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
-            Console.WriteLine("Hello World!");
+            var Account = new Account("nathan");
+
+            Console.WriteLine($"AN: {Account.AccountNumber}, B: {Account.FirstName}");
+
+            var Account2 = new Account("test");
+
+            Console.WriteLine($"AN: {Account2.AccountNumber}, B: {Account2.FirstName}");
         }
     }
 }

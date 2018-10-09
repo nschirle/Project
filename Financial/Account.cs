@@ -6,10 +6,24 @@ namespace Financial
 {
     class Account
     {
-        public int AccountNumber { get;private set; }
+        #region
+        public String AccountNumber { get; private set; }
         public string EmailAddress { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Array Accounts { get; private set; }
+        public DateTime CreatedDate { get; private set; }
+        #endregion
+
+        #region
+        public Account(string firstName)
+        {
+            FirstName = firstName;
+            var guid = Guid.NewGuid();
+            AccountNumber = guid.ToString();
+            CreatedDate = DateTime.Now;
+        }
+
+        #endregion
     }
 }
