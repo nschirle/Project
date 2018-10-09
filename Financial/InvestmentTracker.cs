@@ -14,9 +14,16 @@ namespace Financial
         public int Income { get; set; }
         public int Interest { get; set; }
         public int PercentOfSalarySaved { get; set; }
-        public Array ValueEachYear { get; private set; }
-        public int ValueAtEnd { get; set; }
+        public int TotalSaved { get; private set; }
 
+        public InvestmentTracker()
+        {
 
+        }
+
+        public void totalSaved()
+        {
+            for(int i = YearsInPeriod; )
+        }
     }
 }

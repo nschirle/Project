@@ -11,7 +11,7 @@ namespace Financial
         public string EmailAddress { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Array Accounts { get; private set; }
+        public Array Accounts { get; set; }
         public DateTime CreatedDate { get; private set; }
         #endregion
 
@@ -26,6 +26,7 @@ namespace Financial
             AccountNumber = guid.ToString();
             CreatedDate = DateTime.Now;
         }
+        
 
         #endregion
     }
