@@ -7,7 +7,7 @@ namespace BankApp
     enum TypeOfAccounts
     {
         Savings = 1,
-        Checkings,
+        Checkings= 2,
     }
     /// <summary>
     /// Defines all properties and methods for a bank account
