@@ -27,7 +27,7 @@ namespace Financial
             var percentofSalary = (Income * (PercentOfSalarySaved / 100));
             var years = yearsinperiod;
             Console.WriteLine(percentofSalary);
-            for (int i = 0; i<= years; i++)
+            for (int i = 0; i< years; i++)
             {
               var temp = (percentofSalary*(Interest/100));
                 Console.WriteLine(i);

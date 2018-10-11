@@ -26,7 +26,7 @@ namespace Financial
                 Income = income,
                 Interest = interest,
                 PercentOfSalarySaved = percentsaved,
-                yearsSaved = new decimal[years+1]
+                yearsSaved = new decimal[years]
         };
             return investment;
 
@@ -35,7 +35,13 @@ namespace Financial
         {
            return test.yearsSaved[year];
         }
-       
+        public static void printEachYear(InvestmentTracker test)
+        {
+            for (int i = 0; i < test.yearsSaved.Length; i++)
+            {
+                Console.WriteLine($"year: {i}, Value: {test.yearsSaved[i]:C}");
+            }
+        }
     }
 }
 

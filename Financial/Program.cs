@@ -15,6 +15,7 @@ namespace Financial
 
             Console.WriteLine($"1: {Investment.Income}, B: {Investment.Interest}, N: {Investment.PercentOfSalarySaved}, em: {Investment.YearsInPeriod}, {Investment.TotalSaved:C}");
             Console.WriteLine($"year: {Constructor.yearMark(25, Investment):C}");
+            Constructor.printEachYear(Investment);
         }
     }
 }
