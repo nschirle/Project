@@ -6,6 +6,7 @@ namespace Financial
 {
     class Constructor
     {
+        private static List<InvestmentTracker> accounts = new List<InvestmentTracker>();
 
         public static Account CreateAccount(string emailAddress, string firstName, string lastName)
         {
@@ -25,10 +26,14 @@ namespace Financial
                 Income = income,
                 Interest = interest,
                 PercentOfSalarySaved = percentsaved,
-                yearsSaved = new decimal[years]
+                yearsSaved = new decimal[years+1]
         };
             return investment;
 
+        }
+        public static decimal yearMark(int year, InvestmentTracker test)
+        {
+           return test.yearsSaved[year];
         }
        
     }
