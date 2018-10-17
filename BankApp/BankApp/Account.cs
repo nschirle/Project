@@ -46,9 +46,17 @@ namespace BankApp
         {
             Balance += amount;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="amount"></param>
         public void Withdraw(decimal amount)
         {
+            if(amount > Balance)
+            {
+                throw new InsuficientFundsException("not enough funds in account");
+            }
+               
             Balance -= amount;
         }
         #endregion

@@ -41,27 +41,57 @@ namespace BankApp
                             var account = Bank.CreateAccount(emailAddress, accountType, ammount);
                             Console.WriteLine($"AN: {account.AccountNumber}, B: {account.Balance:C}, AT: {account.AccountType}");
                         }
-                        catch
+                        catch (FormatException ex)
                         {
-                            Console.WriteLine("Something went Wrong");
+                            Console.WriteLine($"invalid data, please try again. {ex.Message}");
+                        }
+                        catch (ArgumentNullException ax)
+                        {
+                            Console.WriteLine($"you must input an email address {ax.Message}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"something went wrong {ex.Message}");
                         }
                         break;
                     case "2":
                         printAllAccounts();
+                        try { 
                         Console.WriteLine("Accounts number to deposit into: ");
                         var anum = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("ammount to deposit: ");
                         var ammountToDeposit = Convert.ToInt32(Console.ReadLine());
                         Bank.Deposit(anum, ammountToDeposit);
+                            }
+                        catch(FormatException ex)
+                        {
+                            Console.WriteLine($"invalid data, please try again. {ex.Message}");
+                        }
+                        catch(NullReferenceException ex)
+                        {
+                            Console.WriteLine($"{ex.Message}");
+                        }
+                        
                         Console.WriteLine("deposit was successful");
                         break;
                     case "3":
                         printAllAccounts();
-                        Console.Write("Accounts number to withdraw from: ");
-                        anum = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("ammount to withdraw: ");
-                        ammountToDeposit = Convert.ToInt32(Console.ReadLine());
-                        Bank.Withdraw(anum, ammountToDeposit);
+                        try
+                        {
+                            Console.Write("Accounts number to withdraw from: ");
+                            var anum = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("ammount to withdraw: ");
+                            var ammountToDeposit = Convert.ToInt32(Console.ReadLine());
+                            Bank.Withdraw(anum, ammountToDeposit);
+                        }
+                        catch (FormatException ex)
+                        {
+                            Console.WriteLine($"invalid data, please try again. {ex.Message}");
+                        }
+                        catch (NullReferenceException ex)
+                        {
+                            Console.WriteLine($"{ex.Message}");
+                        }
                         Console.WriteLine("deposit was successful");
                         break;
                     case "4":
