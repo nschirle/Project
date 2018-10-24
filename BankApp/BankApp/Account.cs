@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace BankApp
@@ -14,24 +15,25 @@ namespace BankApp
     /// </summary>
     class Account
     {
-        private static int LastAccountNumber = 0;
         #region Properties
 
         /// <summary>
         /// Account number for your acount
         /// </summary>
-        public int AccountNumber { get; }
+        public int AccountNumber { get; private set; }
+
+        [EmailAddress]
         public String EmailAddress { get; set; }
         public TypeOfAccounts AccountType { get; set; }
         public Decimal Balance { get; private set; }
-        public DateTime CreatedDate { get; }
+        public DateTime CreatedDate { get; private set;  }
         #endregion
 
         #region constructor
         public Account()
         {
 
-            AccountNumber = ++LastAccountNumber;
+            //AccountNumber = ++LastAccountNumber;
             CreatedDate = DateTime.Now;
         }
 

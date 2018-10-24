@@ -7,7 +7,8 @@ namespace BankApp
 {
     static class Bank
     {
-        private static List<Account> accounts = new List<Account>();
+        private static BankModel db = new BankModel();
+       // private static List<Account> accounts = new List<Account>();
         #region
         /// <summary>
         /// 
@@ -35,13 +36,15 @@ namespace BankApp
             {
                 account.Deposit(initialDeposit);
             }
-            accounts.Add(account);
+            db.Accounts.Add(account);
+            db.SaveChanges();
+           // accounts.Add(account);
             return account;
         }
 
-        public static IEnumerable<Account> getAllAccounts()
+        public static IEnumerable<Account> getAllAccounts(string emailAddress)
         {
-            return accounts;
+            return db.Accounts.Where(a => a.EmailAddress == emailAddress);
         }
         #endregion
         /// <summary>
@@ -52,7 +55,7 @@ namespace BankApp
         /// <exception cref="NullReferenceException"></exception>
         public static void Deposit(int accountnumber, decimal ammount)
         {
-           var account = accounts.SingleOrDefault(accounts => accounts.AccountNumber == accountnumber);
+           var account = db.Accounts.SingleOrDefault(accounts => accounts.AccountNumber == accountnumber);
             if(account== null)
             {
 
@@ -60,6 +63,15 @@ namespace BankApp
             }
            
              account.Deposit(ammount);
+
+            var transaction = new Transaction
+            {
+                Description = "Bank Deposit",
+                TypeOfTransaction = TransactionType.credit,
+                Amount = ammount
+            };
+
+             db.SaveChanges();
             
         }
         /// <summary>
@@ -70,7 +82,7 @@ namespace BankApp
         /// <exception cref="NullReferenceException"></exception>
         public static void Withdraw(int accountnumber, decimal ammount)
         {
-            var account = accounts.SingleOrDefault(accounts => accounts.AccountNumber == accountnumber);
+            var account = db.Accounts.SingleOrDefault(accounts => accounts.AccountNumber == accountnumber);
             if (account == null)
             {
 
@@ -78,6 +90,14 @@ namespace BankApp
             }
 
             account.Withdraw(ammount);
+
+            var transaction = new Transaction
+            {
+                Description = "Bank withdraw",
+                TypeOfTransaction = TransactionType.debit,
+                Amount = ammount
+            };
+            db.SaveChanges();
 
         }
     }

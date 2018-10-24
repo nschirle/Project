@@ -6,9 +6,10 @@ namespace BankApp
     {
         static void Main(string[] args)
         {
+            string emailAddress = null;
             while (true)
             {
-
+                
 
                 Console.WriteLine("Welcome to the Bank of Nate!");
                 Console.WriteLine("Option 0: Exit");
@@ -16,6 +17,10 @@ namespace BankApp
                 Console.WriteLine("Option 2: Deposit Money");
                 Console.WriteLine("Option 3: Withdraw Money");
                 Console.WriteLine("Option 4: Print all accounts");
+                if (emailAddress == null){
+                    Console.Write("Email Address: ");
+                    emailAddress = Console.ReadLine();
+                }
                 Console.Write("please input an option:");
                 var option = Console.ReadLine();
 
@@ -26,8 +31,7 @@ namespace BankApp
                     case "1":
                         try
                         {
-                            Console.Write("Email Address: ");
-                            var emailAddress = Console.ReadLine();
+                            
                             var accountTypes = Enum.GetNames(typeof(TypeOfAccounts));
                             for (int i = 0; i < accountTypes.Length; i++)
                             {
@@ -55,7 +59,7 @@ namespace BankApp
                         }
                         break;
                     case "2":
-                        printAllAccounts();
+                        printAllAccounts(emailAddress);
                         try { 
                         Console.WriteLine("Accounts number to deposit into: ");
                         var anum = Convert.ToInt32(Console.ReadLine());
@@ -75,7 +79,7 @@ namespace BankApp
                         Console.WriteLine("deposit was successful");
                         break;
                     case "3":
-                        printAllAccounts();
+                        printAllAccounts(emailAddress);
                         try
                         {
                             Console.Write("Accounts number to withdraw from: ");
@@ -95,7 +99,7 @@ namespace BankApp
                         Console.WriteLine("deposit was successful");
                         break;
                     case "4":
-                        printAllAccounts();
+                        printAllAccounts(emailAddress);
                         break;
                     default:
                         break;
@@ -103,9 +107,9 @@ namespace BankApp
             }
         }
 
-        private static void printAllAccounts()
+        private static void printAllAccounts(string emailAddress)
         {
-            var accounts = Bank.getAllAccounts();
+            var accounts = Bank.getAllAccounts(emailAddress);
             foreach (var acnt in accounts)
             {
                 Console.WriteLine($"AN: {acnt.AccountNumber}, B: {acnt.Balance:C}, AT: {acnt.AccountType}");
