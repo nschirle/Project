@@ -28,9 +28,24 @@ namespace Financial
                 PercentOfSalarySaved = percentsaved,
                 yearsSaved = new decimal[years]
         };
+            accounts.Add(investment);
             return investment;
 
         }
+
+        /*public static InvestmentTracker changeIncome(int years, decimal income, decimal interest, decimal percentsaved)
+        {
+            var update = accounts[0];
+            {
+                YearsInPeriod = years,
+                Income = income,
+                Interest = interest,
+                PercentOfSalarySaved = percentsaved,
+                yearsSaved = new decimal[years]
+            };
+            return investment;
+
+        }*/
         public static decimal yearMark(int year, InvestmentTracker test)
         {
            return test.yearsSaved[year];
