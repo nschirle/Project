@@ -27,6 +27,8 @@ namespace BankApp
         public TypeOfAccounts AccountType { get; set; }
         public Decimal Balance { get; private set; }
         public DateTime CreatedDate { get; private set;  }
+  
+        public virtual ICollection<Transaction> Transactions { get; set; }
         #endregion
 
         #region constructor

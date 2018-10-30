@@ -46,6 +46,8 @@ namespace BankApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AccountNumber");
+
                     b.Property<decimal>("Amount");
 
                     b.Property<string>("Description");
@@ -57,7 +59,17 @@ namespace BankApp.Migrations
                     b.HasKey("TransactionID")
                         .HasName("PK_Transaction");
 
+                    b.HasIndex("AccountNumber");
+
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("BankApp.Transaction", b =>
+                {
+                    b.HasOne("BankApp.Account", "Account")
+                        .WithMany("Transactions")
+                        .HasForeignKey("AccountNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

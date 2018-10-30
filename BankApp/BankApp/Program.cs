@@ -9,18 +9,19 @@ namespace BankApp
             string emailAddress = null;
             while (true)
             {
-                
 
+                if (emailAddress == null)
+                {
+                    Console.Write("Email Address: ");
+                    emailAddress = Console.ReadLine();
+                }
                 Console.WriteLine("Welcome to the Bank of Nate!");
                 Console.WriteLine("Option 0: Exit");
                 Console.WriteLine("Option 1: Create an Account");
                 Console.WriteLine("Option 2: Deposit Money");
                 Console.WriteLine("Option 3: Withdraw Money");
                 Console.WriteLine("Option 4: Print all accounts");
-                if (emailAddress == null){
-                    Console.Write("Email Address: ");
-                    emailAddress = Console.ReadLine();
-                }
+                Console.WriteLine("Option 5: Print All Account Transactions");
                 Console.Write("please input an option:");
                 var option = Console.ReadLine();
 
@@ -101,9 +102,25 @@ namespace BankApp
                     case "4":
                         printAllAccounts(emailAddress);
                         break;
+                    case "5":
+                        printAllAccounts(emailAddress);
+                        Console.WriteLine("choose account to print transactions");
+                        var accountnumber = Convert.ToInt32(Console.ReadLine());
+                        printAllTransactions(accountnumber);
+                        break;
                     default:
                         break;
                 }
+            }
+        }
+
+        private static void printAllTransactions(int accountNumber)
+        {
+            var transactions = Bank.GetAllTransactions(accountNumber);
+
+            foreach (var tran in transactions)
+            {
+                Console.WriteLine($"Tdate: {tran.TransactionDate} Ttype: {tran.TypeOfTransaction} Ammount: {tran.Amount}");
             }
         }
 

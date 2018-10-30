@@ -37,8 +37,8 @@ namespace BankApp
                 account.Deposit(initialDeposit);
             }
             db.Accounts.Add(account);
-            db.SaveChanges();
-           // accounts.Add(account);
+            db.SaveChanges();   
+               // accounts.Add(account);
             return account;
         }
 
@@ -68,10 +68,11 @@ namespace BankApp
             {
                 Description = "Bank Deposit",
                 TypeOfTransaction = TransactionType.credit,
-                Amount = ammount
+                Amount = ammount,
+                AccountNumber = accountnumber
             };
-
-             db.SaveChanges();
+            db.Transactions.Add(transaction);
+            db.SaveChanges();
             
         }
         /// <summary>
@@ -95,10 +96,16 @@ namespace BankApp
             {
                 Description = "Bank withdraw",
                 TypeOfTransaction = TransactionType.debit,
-                Amount = ammount
+                Amount = ammount,
+                AccountNumber = accountnumber
             };
+            db.Transactions.Add(transaction);
             db.SaveChanges();
 
+        }
+        public static IEnumerable<Transaction> GetAllTransactions(int accountNumber)
+        {
+            return db.Transactions.Where(t => t.AccountNumber == accountNumber).OrderByDescending(t => t.TransactionDate);
         }
     }
 }

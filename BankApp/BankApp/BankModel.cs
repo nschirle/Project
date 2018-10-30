@@ -13,7 +13,7 @@ namespace BankApp
         public virtual DbSet<Transaction> Transactions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+            optionsBuilder.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog=Bankdb;Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,8 @@ namespace BankApp
                 entity.Property(e => e.EmailAddress)
                 .HasMaxLength(50);
 
+                entity.HasMany(e => e.Transactions);
+
                 entity.ToTable("Accounts");
             });
 
@@ -38,6 +40,9 @@ namespace BankApp
 
                 entity.Property(e => e.TransactionID)
                 .ValueGeneratedOnAdd();
+
+                entity.HasOne(e => e.Account);
+                
 
                 entity.ToTable("Transactions");
             });
