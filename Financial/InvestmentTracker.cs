@@ -14,7 +14,8 @@ namespace Financial
         public decimal Income { get; set; }
         public decimal Interest { get; set; }
         public decimal PercentOfSalarySaved { get; set; }
-        public decimal TotalSaved { get; private set; }
+        public decimal TotalSavedYear { get; set; }
+        public decimal TotalSaved { get; set; }
         public decimal[] yearsSaved { get; set; }
         public InvestmentTracker()
         {

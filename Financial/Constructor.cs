@@ -6,7 +6,8 @@ namespace Financial
 {
     class Constructor
     {
-        private static List<InvestmentTracker> accounts = new List<InvestmentTracker>();
+        public static List<InvestmentTracker> year = new List<InvestmentTracker>();
+
 
         public static Account CreateAccount(string emailAddress, string firstName, string lastName)
         {
@@ -18,7 +19,7 @@ namespace Financial
             };
             return account;
         }
-        public static InvestmentTracker CreateInvestment(int years, decimal income, decimal interest, decimal percentsaved)
+        public static void CreateInvestment(int years, decimal income, decimal interest, decimal percentsaved)
         {
             var investment = new InvestmentTracker
             {
@@ -27,9 +28,12 @@ namespace Financial
                 Interest = interest,
                 PercentOfSalarySaved = percentsaved,
                 yearsSaved = new decimal[years]
-        };
-            accounts.Add(investment);
-            return investment;
+            };
+            for (int i = 0; i < years; i++)
+            {
+                year.Add(investment);
+            }
+
 
         }
 
@@ -48,7 +52,7 @@ namespace Financial
         }*/
         public static decimal yearMark(int year, InvestmentTracker test)
         {
-           return test.yearsSaved[year];
+            return test.yearsSaved[year];
         }
         public static void printEachYear(InvestmentTracker test)
         {
@@ -56,6 +60,36 @@ namespace Financial
             {
                 Console.WriteLine($"year: {i}, Value: {test.yearsSaved[i]:C}");
             }
+        }
+        public static void totalsavings()
+        {
+            for(int i =0; i<year.Count; i++)
+            {
+                var percentofSalary = (year[i].Income * (year[i].PercentOfSalarySaved / 100));
+                if (i ==0)
+                {
+                    year[i].TotalSavedYear = percentofSalary * (year[i].Interest / 100);
+                    year[i].TotalSaved = percentofSalary * (year[i].Interest / 100);
+                }
+                else
+                {
+                    year[i].TotalSavedYear = percentofSalary * (year[i].Interest / 100);
+                    year[i].TotalSavedYear = year[i - 1].TotalSavedYear + year[i].TotalSavedYear;
+            }
+
+            
+            /*var years = yearsinperiod;
+            Console.WriteLine(percentofSalary);
+            for (int i = 0; i < years; i++)
+            {
+                var temp = (percentofSalary * (Interest / 100));
+                Console.WriteLine(i);
+
+                TotalSaved += (temp + percentofSalary);
+
+                yearsSaved[i] = TotalSaved;
+
+            }*/
         }
     }
 }
