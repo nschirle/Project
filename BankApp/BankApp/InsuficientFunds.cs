@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BankApp
 {
-    class InsuficientFundsException : Exception
+    public class InsuficientFundsException : Exception
     {
         public InsuficientFundsException()
         {
