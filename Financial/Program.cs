@@ -11,11 +11,7 @@ namespace Financial
             Console.WriteLine($"AN: {Account.AccountNumber}, B: {Account.FirstName}, N: {Account.LastName}, em: {Account.EmailAddress}, {Account.CreatedDate}");
 
             Constructor.CreateInvestment(40, 120000, 6, 20);
-            year.totalSaving();
 
-            Console.WriteLine($"1: {Investment.Income}, B: {Investment.Interest}, N: {Investment.PercentOfSalarySaved}, em: {Investment.YearsInPeriod}, {Investment.TotalSaved:C}");
-            Console.WriteLine($"year: {Constructor.yearMark(25, Investment):C}");
-            Constructor.printEachYear(Investment);
         }
     }
 }

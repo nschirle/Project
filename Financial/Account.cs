@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Financial
 {
-    class Account
+   public class Account
     {
         #region
-        public String AccountNumber { get; private set; }
+        public int AccountNumber { get; private set; }
+        [EmailAddress]
         public string EmailAddress { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Array Accounts { get; set; }
+        public virtual ICollection<InvestmentTracker> InvTracker { get; set; }
         public DateTime CreatedDate { get; private set; }
         #endregion
 
@@ -22,8 +24,6 @@ namespace Financial
         /// <param name="firstName"></param>
         public Account()
         {
-            var guid = Guid.NewGuid();
-            AccountNumber = guid.ToString();
             CreatedDate = DateTime.Now;
         }
         
