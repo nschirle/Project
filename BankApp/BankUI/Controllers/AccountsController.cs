@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BankApp;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BankUI.Controllers
 {
+    [Authorize]
     public class AccountsController : Controller
     {
         private readonly BankModel _context;
@@ -19,21 +21,20 @@ namespace BankUI.Controllers
         }
 
         // GET: Accounts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Accounts.ToListAsync());
+            return View(Bank.getAllAccounts(HttpContext.User.Identity.Name));
         }
 
         // GET: Accounts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var account = await _context.Accounts
-                .FirstOrDefaultAsync(m => m.AccountNumber == id);
+            var account = Bank.getAccountDetails(id.Value);
             if (account == null)
             {
                 return NotFound();
@@ -53,26 +54,29 @@ namespace BankUI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AccountNumber,EmailAddress,AccountType,Balance,CreatedDate")] Account account)
+        public IActionResult Create([Bind("AccountNumber,EmailAddress,AccountType,Balance,CreatedDate")] Account account)
         {
+            if(account.EmailAddress == null)
+            {
+                return View(account);
+            }
             if (ModelState.IsValid)
             {
-                _context.Add(account);
-                await _context.SaveChangesAsync();
+                 Bank.CreateAccount(account.EmailAddress, account.AccountType);
                 return RedirectToAction(nameof(Index));
             }
             return View(account);
         }
 
         // GET: Accounts/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var account = await _context.Accounts.FindAsync(id);
+            var account = Bank.getAccountDetails(id.Value);
             if (account == null)
             {
                 return NotFound();

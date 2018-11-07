@@ -20,13 +20,13 @@ namespace BankApp
         /// <summary>
         /// Account number for your acount
         /// </summary>
-        public int AccountNumber { get; private set; }
+        public int AccountNumber { get;  set; }
 
         [EmailAddress]
         public String EmailAddress { get; set; }
         public TypeOfAccounts AccountType { get; set; }
-        public Decimal Balance { get; private set; }
-        public DateTime CreatedDate { get; private set;  }
+        public Decimal Balance { get;  set; }
+        public DateTime CreatedDate { get;  set;  }
   
         public virtual ICollection<Transaction> Transactions { get; set; }
         #endregion

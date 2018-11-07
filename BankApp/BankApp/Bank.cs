@@ -107,5 +107,16 @@ namespace BankApp
         {
             return db.Transactions.Where(t => t.AccountNumber == accountNumber).OrderByDescending(t => t.TransactionDate);
         }
+        public static Account getAccountDetails(int accountNumber)
+        {
+            return db.Accounts.FirstOrDefault(e => e.AccountNumber == accountNumber);
+        }
+        public static void editAccount(Account account)
+        {
+            
+            db.Update(account);
+            db.SaveChanges();
+
+        }
     }
 }
