@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using FinancialWebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Financial;
 
 namespace FinancialWebApp
 {
@@ -39,7 +40,7 @@ namespace FinancialWebApp
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddTransient(typeof(Program));
+            services.AddTransient(typeof(DBinterface));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
