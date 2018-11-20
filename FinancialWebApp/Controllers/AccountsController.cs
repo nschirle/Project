@@ -13,7 +13,6 @@ namespace FinancialWebApp.Controllers
     [Authorize]
     public class AccountsController : Controller
     {
-        private readonly DBinterface _context;
 
         // GET: Accounts
         public IActionResult Index()
@@ -152,8 +151,8 @@ namespace FinancialWebApp.Controllers
 
             var account = Constructor.getAccountDetails(id.Value);
             var Invest = Constructor.investmentTracker(account);
-
-            return View(Invest);
+            var invest = Constructor.getinvestment(id);
+            return View(invest);
         }
             
 

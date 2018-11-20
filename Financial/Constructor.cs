@@ -60,6 +60,11 @@ namespace Financial
             invest.TotalSaved = invest.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
             db.InvestmentTracker.Add(invest);
             db.SaveChanges();
+            return invest;
+        }
+        public static InvestmentTracker getinvestment(int? id)
+        {
+            return db.InvestmentTracker.FirstOrDefault(e => e.AccountNumber == id);
         }
         
 
