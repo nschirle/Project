@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Financial.Migrations
 {
-    [DbContext(typeof(BankModel))]
+    [DbContext(typeof(DBinterface))]
     partial class BankModelModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -32,7 +32,15 @@ namespace Financial.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<decimal>("Income");
+
+                    b.Property<decimal>("Interest");
+
                     b.Property<string>("LastName");
+
+                    b.Property<decimal>("PercentOfSalarySaved");
+
+                    b.Property<int>("YearsInPeriod");
 
                     b.HasKey("AccountNumber")
                         .HasName("PK_Account");
@@ -67,7 +75,7 @@ namespace Financial.Migrations
             modelBuilder.Entity("Financial.InvestmentTracker", b =>
                 {
                     b.HasOne("Financial.Account", "Account")
-                        .WithMany("InvTracker")
+                        .WithMany()
                         .HasForeignKey("AccountNumber")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

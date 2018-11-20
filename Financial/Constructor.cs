@@ -6,7 +6,7 @@ namespace Financial
 {
     class Constructor
     {
-        private static BankModel db = new BankModel();
+        private static DBinterface db = new DBinterface();
 
         public static Account CreateAccount(string emailAddress, string firstName, string lastName)
         {
@@ -20,7 +20,8 @@ namespace Financial
             db.SaveChanges();
             return account;
         }
-        public static InvestmentTracker CreateInvestment(int years, decimal income, decimal interest, decimal percentsaved)
+
+       /* public static InvestmentTracker CreateInvestment(int years, decimal income, decimal interest, decimal percentsaved)
         {
             var investment = new InvestmentTracker
             {
@@ -34,7 +35,7 @@ namespace Financial
             return investment;
 
 
-        }
+        }*/
 
         /*public static InvestmentTracker changeIncome(int years, decimal income, decimal interest, decimal percentsaved)
         {

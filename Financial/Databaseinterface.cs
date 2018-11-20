@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Financial
 {
-    public class BankModel : DbContext
+    public class DBinterface : DbContext
     {
         public virtual DbSet<InvestmentTracker> InvestmentTracker { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
@@ -28,12 +28,10 @@ namespace Financial
                 entity.Property(e => e.EmailAddress)
                 .HasMaxLength(50);
 
-                entity.HasMany(e => e.InvTracker);
-
                 entity.ToTable("Account");
             });
 
-            modelBuilder.Entity<InvestmentTracker>(entity =>
+           modelBuilder.Entity<InvestmentTracker>(entity =>
             {
                 entity.HasKey(e => e.TrackerID)
                 .HasName("PK_Transaction");

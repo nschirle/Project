@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Financial.Migrations
 {
     [DbContext(typeof(DBinterface))]
-    [Migration("20181101212653_new")]
-    partial class @new
+    [Migration("20181120174250_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,15 @@ namespace Financial.Migrations
 
                     b.Property<string>("FirstName");
 
+                    b.Property<decimal>("Income");
+
+                    b.Property<decimal>("Interest");
+
                     b.Property<string>("LastName");
+
+                    b.Property<decimal>("PercentOfSalarySaved");
+
+                    b.Property<int>("YearsInPeriod");
 
                     b.HasKey("AccountNumber")
                         .HasName("PK_Account");
@@ -69,7 +77,7 @@ namespace Financial.Migrations
             modelBuilder.Entity("Financial.InvestmentTracker", b =>
                 {
                     b.HasOne("Financial.Account", "Account")
-                        .WithMany("InvTracker")
+                        .WithMany()
                         .HasForeignKey("AccountNumber")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

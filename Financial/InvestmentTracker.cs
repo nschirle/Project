@@ -16,7 +16,6 @@ namespace Financial
         public decimal Income { get; set; }
         public decimal Interest { get; set; }
         public decimal PercentOfSalarySaved { get; set; }
-        [ForeignKey("Account")]
         public int AccountNumber { get; set; }
         public virtual Account Account { get; set; }
         public InvestmentTracker()

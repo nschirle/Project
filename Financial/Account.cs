@@ -13,8 +13,11 @@ namespace Financial
         public string EmailAddress { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public virtual ICollection<InvestmentTracker> InvTracker { get; set; }
         public DateTime CreatedDate { get; private set; }
+        public int YearsInPeriod { get; set; }
+        public decimal Income { get; set; }
+        public decimal Interest { get; set; }
+        public decimal PercentOfSalarySaved { get; set; }
         #endregion
 
         #region

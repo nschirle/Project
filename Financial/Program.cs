@@ -10,8 +10,6 @@ namespace Financial
 
             Console.WriteLine($"AN: {Account.AccountNumber}, B: {Account.FirstName}, N: {Account.LastName}, em: {Account.EmailAddress}, {Account.CreatedDate}");
 
-            Constructor.CreateInvestment(40, 120000, 6, 20);
-
         }
     }
 }
