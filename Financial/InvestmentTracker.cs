@@ -11,11 +11,10 @@ namespace Financial
         /// <summary>
         /// these are the attributes of the InvestmentTracker class
         /// </summary>
-        public int TrackerID { get; set; }
-        public int YearsInPeriod { get; set; }
-        public decimal Income { get; set; }
-        public decimal Interest { get; set; }
-        public decimal PercentOfSalarySaved { get; set; }
+        public int trackingNumber { get; set; }
+        public decimal TotalSaved { get; set; }
+        public decimal[] YearlySaved { get; set; }
+        [ForeignKey("Accounts")]
         public int AccountNumber { get; set; }
         public virtual Account Account { get; set; }
         public InvestmentTracker()

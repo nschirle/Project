@@ -6,34 +6,30 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Financial;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinancialWebApp.Controllers
 {
+    [Authorize]
     public class AccountsController : Controller
     {
         private readonly DBinterface _context;
 
-        public AccountsController(DBinterface context)
-        {
-            _context = context;
-        }
-
         // GET: Accounts
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Accounts.ToListAsync());
+            return View(Constructor.getAllAccounts(HttpContext.User.Identity.Name));
         }
 
         // GET: Accounts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var account = await _context.Accounts
-                .FirstOrDefaultAsync(m => m.AccountNumber == id);
+            var account = Constructor.getAccountDetails(id.Value);
             if (account == null)
             {
                 return NotFound();
@@ -53,26 +49,29 @@ namespace FinancialWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AccountNumber,EmailAddress,FirstName,LastName,CreatedDate,YearsInPeriod,Income,Interest,PercentOfSalarySaved")] Account account)
+        public IActionResult Create([Bind("AccountNumber,EmailAddress,FirstName,LastName,CreatedDate,YearsInPeriod,Income,Interest,PercentOfSalarySaved")] Account account)
         {
+            if (account.EmailAddress == null)
+            {
+                return View(account);
+            }
             if (ModelState.IsValid)
             {
-                _context.Add(account);
-                await _context.SaveChangesAsync();
+                Constructor.CreateAccount(account.EmailAddress, account.FirstName, account.LastName);
                 return RedirectToAction(nameof(Index));
             }
             return View(account);
         }
 
         // GET: Accounts/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var account = await _context.Accounts.FindAsync(id);
+            var account = Constructor.getAccountDetails(id.Value);
             if (account == null)
             {
                 return NotFound();
@@ -85,7 +84,7 @@ namespace FinancialWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AccountNumber,EmailAddress,FirstName,LastName,CreatedDate,YearsInPeriod,Income,Interest,PercentOfSalarySaved")] Account account)
+        public IActionResult Edit(int id, [Bind("AccountNumber,EmailAddress,FirstName,LastName,CreatedDate,YearsInPeriod,Income,Interest,PercentOfSalarySaved")] Account account)
         {
             if (id != account.AccountNumber)
             {
@@ -96,12 +95,11 @@ namespace FinancialWebApp.Controllers
             {
                 try
                 {
-                    _context.Update(account);
-                    await _context.SaveChangesAsync();
+                    Constructor.editAccount(account);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AccountExists(account.AccountNumber))
+                    if (!Constructor.AccountExists(account.AccountNumber))
                     {
                         return NotFound();
                     }
@@ -116,15 +114,15 @@ namespace FinancialWebApp.Controllers
         }
 
         // GET: Accounts/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var account = await _context.Accounts
-                .FirstOrDefaultAsync(m => m.AccountNumber == id);
+            var account = Constructor.getAccountDetails(id.Value);
+
             if (account == null)
             {
                 return NotFound();
@@ -136,17 +134,29 @@ namespace FinancialWebApp.Controllers
         // POST: Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public void DeleteConfirmed(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
-            _context.Accounts.Remove(account);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            Constructor.DeleteAccount(id);
         }
 
         private bool AccountExists(int id)
         {
-            return _context.Accounts.Any(e => e.AccountNumber == id);
+            return Constructor.AccountExists(id);
         }
+        /*public IActionResult RunModel(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var account = Constructor.getAccountDetails(id.Value);
+            var Invest = Constructor.investmentTracker(account);
+
+            }
+            return View(InvestmentTracker);
+
+
+        }*/
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Financial
 {
-    class Constructor
+    public class Constructor
     {
-        private static DBinterface db = new DBinterface();
+        public static DBinterface db = new DBinterface();
 
         public static Account CreateAccount(string emailAddress, string firstName, string lastName)
         {
@@ -21,21 +22,54 @@ namespace Financial
             return account;
         }
 
-       /* public static InvestmentTracker CreateInvestment(int years, decimal income, decimal interest, decimal percentsaved)
+        public static IEnumerable<Account> getAllAccounts(string emailAddress)
         {
-            var investment = new InvestmentTracker
-            {
-                YearsInPeriod = years,
-                Income = income,
-                Interest = interest,
-                PercentOfSalarySaved = percentsaved,
-            };
-            db.InvestmentTracker.Add(investment);
+            return db.Accounts.Where(a => a.EmailAddress == emailAddress);
+        }
+        public static Account getAccountDetails(int accountNumber)
+        {
+            return db.Accounts.FirstOrDefault(e => e.AccountNumber == accountNumber);
+        }
+        public static void editAccount(Account account)
+        {
+            var oldAccount = Constructor.getAccountDetails(account.AccountNumber);
+            oldAccount.Income = account.Income;
+            oldAccount.Interest = account.Interest;
+            oldAccount.YearsInPeriod = account.YearsInPeriod;
+            oldAccount.PercentOfSalarySaved = account.PercentOfSalarySaved;
+            oldAccount.FirstName = account.FirstName;
+            oldAccount.LastName = account.LastName;
+            oldAccount.EmailAddress = account.EmailAddress;
+            db.Update(oldAccount);
             db.SaveChanges();
-            return investment;
+
+        }
+        public static bool AccountExists(int id)
+        {
+            return db.Accounts.Any(e => e.AccountNumber == id);
+        }
+        public static void DeleteAccount(int AccountNumber)
+        {
+            var accountToDelete = Constructor.getAccountDetails(AccountNumber);
+            db.Accounts.Remove(accountToDelete);
+            db.SaveChanges();
+        }
+        public static InvestmentTracker investmentTracker(Account account)
+        {
+            InvestmentTracker invest = new InvestmentTracker();
+
+            for (int i = 0; i < account.YearsInPeriod; i++)
+            {
+                var temp = (account.PercentOfSalarySaved * (account.Interest / 100));
 
 
-        }*/
+                decimal TotalSaved = +(temp + account.PercentOfSalarySaved);
+
+                invest.YearlySaved[i] = TotalSaved;
+                invest.TotalSaved = TotalSaved;
+            }
+            return invest;
+        }
 
         /*public static InvestmentTracker changeIncome(int years, decimal income, decimal interest, decimal percentsaved)
         {
@@ -51,20 +85,20 @@ namespace Financial
 
         }*/
 
-            
-            /*var years = yearsinperiod;
-            Console.WriteLine(percentofSalary);
-            for (int i = 0; i < years; i++)
-            {
-                var temp = (percentofSalary * (Interest / 100));
-                Console.WriteLine(i);
 
-                TotalSaved += (temp + percentofSalary);
+        /*var years = yearsinperiod;
+        Console.WriteLine(percentofSalary);
+        for (int i = 0; i < years; i++)
+        {
+            var temp = (percentofSalary * (Interest / 100));
+            Console.WriteLine(i);
 
-                yearsSaved[i] = TotalSaved;
+            TotalSaved += (temp + percentofSalary);
 
-            }*/
-        }
+            yearsSaved[i] = TotalSaved;
+
+        }*/
+    }
     }
 
 

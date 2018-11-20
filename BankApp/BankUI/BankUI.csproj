@@ -15,10 +15,4 @@
     <ProjectReference Include="..\BankApp\BankApp.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="Views\Accounts\withdraw.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-  </ItemGroup>
-
 </Project>

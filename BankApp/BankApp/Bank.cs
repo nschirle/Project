@@ -113,22 +113,10 @@ namespace BankApp
         }
         public static void editAccount(Account account)
         {
-            var oldAccount = Bank.getAccountDetails(account.AccountNumber);
-            oldAccount.AccountType = account.AccountType;
-            oldAccount.EmailAddress = account.EmailAddress;
-            db.Update(oldAccount);
+            
+            db.Update(account);
             db.SaveChanges();
 
-        }
-        public static void DeleteAccount(int AccountNumber)
-        {
-            var accountToDelete = Bank.getAccountDetails(AccountNumber);
-            db.Accounts.Remove(accountToDelete);
-            db.SaveChanges();
-        }
-        public static bool AccountExists(int id)
-        {
-            return db.Accounts.Any(e => e.AccountNumber == id);
         }
     }
 }
