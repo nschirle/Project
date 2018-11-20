@@ -21,21 +21,7 @@ namespace Financial
             return account;
         }
 
-       /* public static InvestmentTracker CreateInvestment(int years, decimal income, decimal interest, decimal percentsaved)
-        {
-            var investment = new InvestmentTracker
-            {
-                YearsInPeriod = years,
-                Income = income,
-                Interest = interest,
-                PercentOfSalarySaved = percentsaved,
-            };
-            db.InvestmentTracker.Add(investment);
-            db.SaveChanges();
-            return investment;
-
-
-        }*/
+        public static 
 
         /*public static InvestmentTracker changeIncome(int years, decimal income, decimal interest, decimal percentsaved)
         {
