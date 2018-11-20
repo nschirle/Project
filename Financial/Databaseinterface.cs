@@ -32,10 +32,10 @@ namespace Financial
             });
             modelBuilder.Entity<InvestmentTracker>(entity =>
             {
-                entity.HasKey(e => e.trackingNumber)
+                entity.HasKey(e => e.TrackingNumber)
                 .HasName("PK_Transaction");
 
-                entity.Property(e => e.trackingNumber)
+                entity.Property(e => e.TrackingNumber)
                 .ValueGeneratedOnAdd();
 
                 entity.HasOne(e => e.Account);

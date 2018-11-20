@@ -57,19 +57,11 @@ namespace Financial
         public static InvestmentTracker investmentTracker(Account account)
         {
             InvestmentTracker invest = new InvestmentTracker();
-
-            for (int i = 0; i < account.YearsInPeriod; i++)
-            {
-                var temp = (account.PercentOfSalarySaved * (account.Interest / 100));
-
-
-                decimal TotalSaved = +(temp + account.PercentOfSalarySaved);
-
-                invest.YearlySaved[i] = TotalSaved;
-                invest.TotalSaved = TotalSaved;
-            }
-            return invest;
+            invest.TotalSaved = invest.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+            db.InvestmentTracker.Add(invest);
+            db.SaveChanges();
         }
+        
 
         /*public static InvestmentTracker changeIncome(int years, decimal income, decimal interest, decimal percentsaved)
         {

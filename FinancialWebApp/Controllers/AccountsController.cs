@@ -143,9 +143,9 @@ namespace FinancialWebApp.Controllers
         {
             return Constructor.AccountExists(id);
         }
-        /*public IActionResult RunModel(int? id)
+        public IActionResult RunModel(int? id)
         {
-            if (id == null)
+           if (id == null)
             {
                 return NotFound();
             }
@@ -153,10 +153,11 @@ namespace FinancialWebApp.Controllers
             var account = Constructor.getAccountDetails(id.Value);
             var Invest = Constructor.investmentTracker(account);
 
-            }
-            return View(InvestmentTracker);
+            return View(Invest);
+        }
+            
 
 
-        }*/
+        }
     }
-}
+

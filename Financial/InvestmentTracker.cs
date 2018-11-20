@@ -11,9 +11,9 @@ namespace Financial
         /// <summary>
         /// these are the attributes of the InvestmentTracker class
         /// </summary>
-        public int trackingNumber { get; set; }
+        public int TrackingNumber { get; set; }
         public decimal TotalSaved { get; set; }
-        public decimal[] YearlySaved { get; set; }
+        //public decimal[] YearlySaved { get; set; }
         [ForeignKey("Accounts")]
         public int AccountNumber { get; set; }
         public virtual Account Account { get; set; }
@@ -21,23 +21,34 @@ namespace Financial
         {
             
         }
-
-       /* public void totalSaved(int yearsinperiod)
+        public decimal generateTotal(int years, decimal salary, decimal interest, decimal saved)
         {
-
-            var percentofSalary = (Income * (PercentOfSalarySaved / 100));
-            var years = yearsinperiod;
-            Console.WriteLine(percentofSalary);
-            for (int i = 0; i< years; i++)
+            decimal TotalSaved = 0;
+            for (int i = 0; i < years; i++)
             {
-              var temp = (percentofSalary*(Interest/100));
-                Console.WriteLine(i);
+                var temp = (saved * (interest / 100));
 
-                TotalSaved += (temp + percentofSalary);
-                
-                yearsSaved[i] = TotalSaved;
-
-            }*/
+                TotalSaved = +(temp + saved);
+            }
+            return TotalSaved;
         }
+
+        /* public void totalSaved(int yearsinperiod)
+         {
+
+             var percentofSalary = (Income * (PercentOfSalarySaved / 100));
+             var years = yearsinperiod;
+             Console.WriteLine(percentofSalary);
+             for (int i = 0; i< years; i++)
+             {
+               var temp = (percentofSalary*(Interest/100));
+                 Console.WriteLine(i);
+
+                 TotalSaved += (temp + percentofSalary);
+
+                 yearsSaved[i] = TotalSaved;
+
+             }*/
+    }
     }
 
