@@ -1,0 +1,48 @@
+﻿@model Financial.InvestmentTracker
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>InvestmentTracker</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.YearsInPeriod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.YearsInPeriod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Income)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Income)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Interest)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Interest)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PercentOfSalarySaved)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PercentOfSalarySaved)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Account)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Account.AccountNumber)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TrackerID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
