@@ -149,9 +149,9 @@ namespace FinancialWebApp.Controllers
                 return NotFound();
             }
 
-            var account = Constructor.getAccountDetails(id.Value);
+           var account = Constructor.getAccountDetails(id.Value);
             var Invest = Constructor.investmentTracker(account);
-            var invest = Constructor.getinvestment(id);
+            var invest = Constructor.getinvestment(id.Value);
             return View(invest);
         }
             
