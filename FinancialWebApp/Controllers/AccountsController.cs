@@ -57,6 +57,7 @@ namespace FinancialWebApp.Controllers
             if (ModelState.IsValid)
             {
                 Constructor.CreateAccount(account.EmailAddress, account.FirstName, account.LastName);
+                
                 return RedirectToAction(nameof(Index));
             }
             return View(account);
@@ -71,6 +72,7 @@ namespace FinancialWebApp.Controllers
             }
 
             var account = Constructor.getAccountDetails(id.Value);
+            var Invest = Constructor.investmentTracker(account);
             if (account == null)
             {
                 return NotFound();
@@ -149,10 +151,10 @@ namespace FinancialWebApp.Controllers
                 return NotFound();
             }
 
-           var account = Constructor.getAccountDetails(id.Value);
-            var Invest = Constructor.investmentTracker(account);
-            var invest = Constructor.getinvestment(id.Value);
-            return View(invest);
+
+            
+            var runModel = Constructor.Getinvestment(id.Value);
+            return View(runModel);
         }
             
 

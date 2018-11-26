@@ -14,7 +14,7 @@ namespace Financial
         public int TrackingNumber { get; set; }
         public decimal TotalSaved { get; set; }
         //public decimal[] YearlySaved { get; set; }
-        [ForeignKey("Accounts")]
+        [ForeignKey("Account")]
         public int AccountNumber { get; set; }
         public virtual Account Account { get; set; }
         public InvestmentTracker()

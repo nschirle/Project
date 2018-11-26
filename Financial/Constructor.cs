@@ -56,15 +56,19 @@ namespace Financial
         }
         public static InvestmentTracker investmentTracker(Account account)
         {
-            InvestmentTracker invest = new InvestmentTracker();
+            InvestmentTracker invest = new InvestmentTracker
+            {
+                AccountNumber = account.AccountNumber
+            };
+
             invest.TotalSaved = invest.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
             db.InvestmentTracker.Add(invest);
             db.SaveChanges();
             return invest;
         }
-        public static InvestmentTracker getinvestment(int? id)
+        public static IEnumerable<InvestmentTracker> Getinvestment(int? id)
         {
-            return db.InvestmentTracker.FirstOrDefault(e => e.AccountNumber == id);
+            return db.InvestmentTracker.Where(e => e.AccountNumber == id);
         }
         
 
