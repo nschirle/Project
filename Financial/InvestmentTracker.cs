@@ -23,12 +23,12 @@ namespace Financial
         }
         public decimal generateTotal(int years, decimal salary, decimal interest, decimal saved)
         {
-            decimal TotalSaved = 0;
+            
             for (int i = 0; i < years; i++)
             {
                 var temp = (saved * (interest / 100));
 
-                TotalSaved = +(temp + saved);
+                this.TotalSaved += (temp + saved);
             }
             return TotalSaved;
         }

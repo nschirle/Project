@@ -151,9 +151,11 @@ namespace FinancialWebApp.Controllers
                 return NotFound();
             }
 
-
-            
+            var account = Constructor.getAccountDetails(id.Value);
+            var Invest = Constructor.investmentTracker(account);
+            Constructor.UpdateTrackers(id);
             var runModel = Constructor.Getinvestment(id.Value);
+            
             return View(runModel);
         }
             

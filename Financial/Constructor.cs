@@ -60,18 +60,38 @@ namespace Financial
             {
                 AccountNumber = account.AccountNumber
             };
-
-            invest.TotalSaved = invest.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
-            db.InvestmentTracker.Add(invest);
-            db.SaveChanges();
-            return invest;
+            var temp = db.InvestmentTracker.FirstOrDefault(e => e.AccountNumber == account.AccountNumber);
+            if (temp == null)
+            {
+                invest.TotalSaved = invest.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+                db.InvestmentTracker.Add(invest);
+                db.SaveChanges();
+                return invest;
+            }
+           else
+            {
+                temp.TotalSaved = invest.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+                return temp;
+            }
+            
         }
         public static IEnumerable<InvestmentTracker> Getinvestment(int? id)
         {
             return db.InvestmentTracker.Where(e => e.AccountNumber == id);
         }
         
-
+        public static void UpdateTrackers(int? id)
+        {
+            var account = db.Accounts.FirstOrDefault(e => e.AccountNumber == id);
+           var temp = db.InvestmentTracker.Where(e => e.AccountNumber == id);
+            foreach (var tracker in temp)
+            {
+                tracker.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+                db.Update(tracker);
+               
+            }
+            db.SaveChanges();
+        }
         /*public static InvestmentTracker changeIncome(int years, decimal income, decimal interest, decimal percentsaved)
         {
             var update = accounts[0];
