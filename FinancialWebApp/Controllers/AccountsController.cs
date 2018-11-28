@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Financial;
 using Microsoft.AspNetCore.Authorization;
+using System.Web.UI.DataVisualization.Charting;
+using System.Text;
 
 namespace FinancialWebApp.Controllers
 {
@@ -56,7 +53,7 @@ namespace FinancialWebApp.Controllers
             }
             if (ModelState.IsValid)
             {
-                Constructor.CreateAccount(account.EmailAddress, account.FirstName, account.LastName);
+                Constructor.CreateAccount(account);
                 
                 return RedirectToAction(nameof(Index));
             }
@@ -135,9 +132,10 @@ namespace FinancialWebApp.Controllers
         // POST: Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public void DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             Constructor.DeleteAccount(id);
+            return RedirectToAction(nameof(Index));
         }
 
         private bool AccountExists(int id)
@@ -155,12 +153,13 @@ namespace FinancialWebApp.Controllers
             var Invest = Constructor.investmentTracker(account);
             Constructor.UpdateTrackers(id);
             var runModel = Constructor.Getinvestment(id.Value);
+
             
+
             return View(runModel);
         }
-            
 
+    }
 
-        }
     }
 

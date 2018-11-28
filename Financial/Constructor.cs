@@ -9,14 +9,9 @@ namespace Financial
     {
         public static DBinterface db = new DBinterface();
 
-        public static Account CreateAccount(string emailAddress, string firstName, string lastName)
+        public static Account CreateAccount(Account account)
         {
-            var account = new Account
-            {
-                EmailAddress = emailAddress,
-                FirstName = firstName,
-                LastName = lastName
-            };
+            
             db.Accounts.Add(account);
             db.SaveChanges();
             return account;
@@ -63,14 +58,14 @@ namespace Financial
             var temp = db.InvestmentTracker.FirstOrDefault(e => e.AccountNumber == account.AccountNumber);
             if (temp == null)
             {
-                invest.TotalSaved = invest.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+                invest.TotalSaved = invest.GenerateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
                 db.InvestmentTracker.Add(invest);
                 db.SaveChanges();
                 return invest;
             }
            else
             {
-                temp.TotalSaved = invest.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+                temp.TotalSaved = invest.GenerateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
                 return temp;
             }
             
@@ -86,39 +81,13 @@ namespace Financial
            var temp = db.InvestmentTracker.Where(e => e.AccountNumber == id);
             foreach (var tracker in temp)
             {
-                tracker.generateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+                tracker.GenerateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
                 db.Update(tracker);
                
             }
             db.SaveChanges();
         }
-        /*public static InvestmentTracker changeIncome(int years, decimal income, decimal interest, decimal percentsaved)
-        {
-            var update = accounts[0];
-            {
-                YearsInPeriod = years,
-                Income = income,
-                Interest = interest,
-                PercentOfSalarySaved = percentsaved,
-                yearsSaved = new decimal[years]
-            };
-            return investment;
 
-        }*/
-
-
-        /*var years = yearsinperiod;
-        Console.WriteLine(percentofSalary);
-        for (int i = 0; i < years; i++)
-        {
-            var temp = (percentofSalary * (Interest / 100));
-            Console.WriteLine(i);
-
-            TotalSaved += (temp + percentofSalary);
-
-            yearsSaved[i] = TotalSaved;
-
-        }*/
     }
     }
 

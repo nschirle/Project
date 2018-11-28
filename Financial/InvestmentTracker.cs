@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+
 
 namespace Financial
 {
@@ -12,6 +14,7 @@ namespace Financial
         /// these are the attributes of the InvestmentTracker class
         /// </summary>
         public int TrackingNumber { get; set; }
+        [DataType(DataType.Currency)]
         public decimal TotalSaved { get; set; }
         //public decimal[] YearlySaved { get; set; }
         [ForeignKey("Account")]
@@ -19,36 +22,21 @@ namespace Financial
         public virtual Account Account { get; set; }
         public InvestmentTracker()
         {
-            
+
         }
-        public decimal generateTotal(int years, decimal salary, decimal interest, decimal saved)
+        public decimal GenerateTotal(int years, decimal salary, decimal interest, decimal percentSaved)
         {
-            
+
             for (int i = 0; i < years; i++)
             {
-                var temp = (saved * (interest / 100));
+                var yearSaved = (salary * (percentSaved / 100)) + this.TotalSaved;
+                var temp = (yearSaved * (interest / 100));
 
-                this.TotalSaved += (temp + saved);
+                this.TotalSaved += (temp + percentSaved);
             }
             return TotalSaved;
         }
-
-        /* public void totalSaved(int yearsinperiod)
-         {
-
-             var percentofSalary = (Income * (PercentOfSalarySaved / 100));
-             var years = yearsinperiod;
-             Console.WriteLine(percentofSalary);
-             for (int i = 0; i< years; i++)
-             {
-               var temp = (percentofSalary*(Interest/100));
-                 Console.WriteLine(i);
-
-                 TotalSaved += (temp + percentofSalary);
-
-                 yearsSaved[i] = TotalSaved;
-
-             }*/
     }
-    }
+}
+       
 
