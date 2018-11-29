@@ -15,7 +15,7 @@ namespace Financial
         /// </summary>
         public int TrackingNumber { get; set; }
         [DataType(DataType.Currency)]
-        public decimal TotalSaved { get; set; }
+        public double TotalSaved { get; set; }
         //public decimal[] YearlySaved { get; set; }
         [ForeignKey("Account")]
         public int AccountNumber { get; set; }
@@ -24,18 +24,7 @@ namespace Financial
         {
 
         }
-        public decimal GenerateTotal(int years, decimal salary, decimal interest, decimal percentSaved)
-        {
 
-            for (int i = 0; i < years; i++)
-            {
-                var yearSaved = (salary * (percentSaved / 100)) + this.TotalSaved;
-                var temp = (yearSaved * (interest / 100));
-                Constructor.AddYear(i, yearSaved, this.TrackingNumber);
-                this.TotalSaved += (temp + percentSaved);
-            }
-            return TotalSaved;
-        }
     }
 }
        

@@ -159,6 +159,18 @@ namespace FinancialWebApp.Controllers
             return View(runModel);
         }
 
+        public IActionResult yearsList(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var account = Constructor.getAccountDetails(id.Value);
+            var Invest = Constructor.investmentTracker(account);
+            var yearsList = Constructor.GetAllYears(Invest);
+            return View(yearsList);
+        }
+
     }
 
     }

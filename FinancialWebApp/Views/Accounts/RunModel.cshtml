@@ -24,15 +24,17 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalSaved)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Account.AccountNumber)
-                </td>
-
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSaved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account.AccountNumber)
+            </td>
+            <td>
+                <a asp-action="yearsList" asp-route-id="@item.AccountNumber">List Years</a> 
+            </td>
+        </tr>
         }
 
 

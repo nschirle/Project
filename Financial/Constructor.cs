@@ -58,14 +58,14 @@ namespace Financial
             var temp = db.InvestmentTracker.FirstOrDefault(e => e.AccountNumber == account.AccountNumber);
             if (temp == null)
             {
-                invest.TotalSaved = invest.GenerateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+                
                 db.InvestmentTracker.Add(invest);
                 db.SaveChanges();
                 return invest;
             }
            else
             {
-                temp.TotalSaved = invest.GenerateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+               
                 return temp;
             }
             
@@ -79,22 +79,34 @@ namespace Financial
         {
             var account = db.Accounts.FirstOrDefault(e => e.AccountNumber == id);
            var temp = db.InvestmentTracker.Where(e => e.AccountNumber == id);
+            
             foreach (var tracker in temp)
             {
-                tracker.GenerateTotal(account.YearsInPeriod, account.Income, account.Interest, account.PercentOfSalarySaved);
+
+                double tempSalarySaved = 0;
+                for (int i = 0; i < account.YearsInPeriod; i++)
+                {
+                    var saved = (account.Income * (account.PercentOfSalarySaved / 100));
+                    var interest = ((account.Interest / 100) + 1);
+                     tempSalarySaved = ((saved + tempSalarySaved) *(interest));
+                    
+                    Constructor.AddYear(i, tempSalarySaved, tracker);
+                    tracker.TotalSaved = tempSalarySaved;
+                }
                 db.Update(tracker);
                
             }
             db.SaveChanges();
         }
-        public static void AddYear(int year, decimal value, int trackingnumber)
+        public static void AddYear(int year, double value, InvestmentTracker invest)
         {
-            var investtracker = db.InvestmentTracker.FirstOrDefault(e => e.TrackingNumber == trackingnumber);
-            var DByear = db.YearTracker.FirstOrDefault(e => e.TrackingNumber == trackingnumber && e.Year == year);
+            YearTracker addyear = new YearTracker(year, value);
+            
+            var DByear = db.YearTracker.FirstOrDefault(e => e.TrackingNumber == invest.TrackingNumber && e.Year == year);
             if (DByear == null)
             {
-                YearTracker addyear = new YearTracker(year, value);
-                addyear.TrackingNumber = investtracker.TrackingNumber;
+                
+                addyear.TrackingNumber = invest.TrackingNumber;
                 db.YearTracker.Add(addyear);
                 db.SaveChanges();
             }
@@ -106,6 +118,11 @@ namespace Financial
                 db.SaveChanges();
             }
             
+        }
+
+        public static IEnumerable<YearTracker> GetAllYears( InvestmentTracker Invest)
+        {
+            return db.YearTracker.Where(e => e.TrackingNumber == Invest.TrackingNumber).OrderBy(t => t.Year);
         }
 
     }
