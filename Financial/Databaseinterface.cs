@@ -11,6 +11,7 @@ namespace Financial
     {
         public virtual DbSet<InvestmentTracker> InvestmentTracker { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<YearTracker> YearTracker { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog=InvestmentDB;Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
@@ -42,6 +43,18 @@ namespace Financial
 
 
                 entity.ToTable("InvestmentTracker");
+            });
+            modelBuilder.Entity<YearTracker>(entity =>
+            {
+                entity.HasKey(e => e.YearTrackingNumber)
+                .HasName("PK_YearTrackingNumber");
+
+                entity.Property(e => e.YearTrackingNumber)
+                .ValueGeneratedOnAdd();
+
+                entity.HasOne(e => e.InvestmentTracker);
+
+                entity.ToTable("YearTracker");
             });
         }
     }

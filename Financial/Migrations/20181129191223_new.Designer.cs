@@ -4,14 +4,16 @@ using Financial;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Financial.Migrations
 {
     [DbContext(typeof(DBinterface))]
-    partial class BankModelModelSnapshot : ModelSnapshot
+    [Migration("20181129191223_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,11 +68,39 @@ namespace Financial.Migrations
                     b.ToTable("InvestmentTracker");
                 });
 
+            modelBuilder.Entity("Financial.YearTracker", b =>
+                {
+                    b.Property<int>("YearTrackingNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("TrackingNumber");
+
+                    b.Property<decimal>("Value");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("YearTrackingNumber")
+                        .HasName("PK_YearTrackingNumber");
+
+                    b.HasIndex("TrackingNumber");
+
+                    b.ToTable("YearTracker");
+                });
+
             modelBuilder.Entity("Financial.InvestmentTracker", b =>
                 {
                     b.HasOne("Financial.Account", "Account")
                         .WithMany("InvestmentTracker")
                         .HasForeignKey("AccountNumber")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Financial.YearTracker", b =>
+                {
+                    b.HasOne("Financial.InvestmentTracker", "InvestmentTracker")
+                        .WithMany()
+                        .HasForeignKey("TrackingNumber")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

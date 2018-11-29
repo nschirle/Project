@@ -31,7 +31,7 @@ namespace Financial
             {
                 var yearSaved = (salary * (percentSaved / 100)) + this.TotalSaved;
                 var temp = (yearSaved * (interest / 100));
-
+                Constructor.AddYear(i, yearSaved, this.TrackingNumber);
                 this.TotalSaved += (temp + percentSaved);
             }
             return TotalSaved;

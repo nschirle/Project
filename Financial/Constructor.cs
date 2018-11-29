@@ -7,7 +7,7 @@ namespace Financial
 {
     public class Constructor
     {
-        public static DBinterface db = new DBinterface();
+        private static DBinterface db = new DBinterface();
 
         public static Account CreateAccount(Account account)
         {
@@ -86,6 +86,26 @@ namespace Financial
                
             }
             db.SaveChanges();
+        }
+        public static void AddYear(int year, decimal value, int trackingnumber)
+        {
+            var investtracker = db.InvestmentTracker.FirstOrDefault(e => e.TrackingNumber == trackingnumber);
+            var DByear = db.YearTracker.FirstOrDefault(e => e.TrackingNumber == trackingnumber && e.Year == year);
+            if (DByear == null)
+            {
+                YearTracker addyear = new YearTracker(year, value);
+                addyear.TrackingNumber = investtracker.TrackingNumber;
+                db.YearTracker.Add(addyear);
+                db.SaveChanges();
+            }
+            else
+            {
+                DByear.Year = year;
+                DByear.Value = value;
+                db.YearTracker.Update(DByear);
+                db.SaveChanges();
+            }
+            
         }
 
     }
