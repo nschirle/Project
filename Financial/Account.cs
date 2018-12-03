@@ -15,7 +15,9 @@ namespace Financial
         public string LastName { get; set; }
         public DateTime CreatedDate { get;  set; }
         public int YearsInPeriod { get; set; }
+        [DataType(DataType.Currency)]
         public double Income { get; set; }
+        
         public double Interest { get; set; }
         public double PercentOfSalarySaved { get; set; }
         public virtual ICollection<InvestmentTracker> InvestmentTracker { get; set; }

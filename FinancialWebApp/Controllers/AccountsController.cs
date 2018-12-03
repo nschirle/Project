@@ -168,6 +168,11 @@ namespace FinancialWebApp.Controllers
             var account = Constructor.getAccountDetails(id.Value);
             var Invest = Constructor.investmentTracker(account);
             var yearsList = Constructor.GetAllYears(Invest);
+            foreach(var year in yearsList)
+            {
+                var temp =System.DateTime.Today.Year;
+                year.Year += temp +1;
+            }
             return View(yearsList);
         }
 
