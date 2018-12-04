@@ -3,9 +3,6 @@
 @{
     ViewData["Title"] = "RunModel";
 }
-<header>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</header>
 <h2>RunModel</h2>
 
 
@@ -32,7 +29,9 @@
                 @Html.DisplayFor(modelItem => item.Account.AccountNumber)
             </td>
             <td>
-                <a asp-action="yearsList" asp-route-id="@item.AccountNumber">List Years</a> 
+                <a asp-action="yearsList" asp-route-id="@item.AccountNumber">List Years</a> |
+                <a asp-action="GraphofYears" asp-route-id="@item.AccountNumber">Graph Years</a> |
+                <a asp-action="GraphofYearsInflation" asp-route-id="@item.AccountNumber">Graph Years with inflation</a>
             </td>
         </tr>
         }
@@ -40,40 +39,3 @@
 
     </tbody>
 </table>
-<div id="chartContainer">
-
-
-</div>
-<script type="text/javascript">
-
-    window.onload = function () {
-        var chart = new CanvasJS.Chart("chartContainer", {
-            theme: "theme2",
-            animationEnabled: true,
-            title: {
-                text: "Simple Column "
-            },
-            subtitles: [
-                { text: "Try Resizing the Browser" }
-            ],
-            data: [
-                {
-                    type: "column", //change type to bar, line, area, pie, etc
-                    dataPoints: [
-                        { x: 10, y: 71 },
-                        { x: 20, y: 55 },
-                        { x: 30, y: 50 },
-                        { x: 40, y: 65 },
-                        { x: 50, y: 95 },
-                        { x: 60, y: 68 },
-                        { x: 70, y: 28 },
-                        { x: 80, y: 34 },
-                        { x: 90, y: 14 }
-                    ]
-                }
-            ]
-        });
-        chart.render();
-    };
-</script>
-

@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Web;
 using Financial;
+using FinancialWebApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.Web.UI.DataVisualization.Charting;
-using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace FinancialWebApp.Controllers
 {
@@ -168,12 +174,63 @@ namespace FinancialWebApp.Controllers
             var account = Constructor.getAccountDetails(id.Value);
             var Invest = Constructor.investmentTracker(account);
             var yearsList = Constructor.GetAllYears(Invest);
-            foreach(var year in yearsList)
+
+            foreach (var year in yearsList)
             {
                 var temp =System.DateTime.Today.Year;
                 year.Year += temp +1;
+                
             }
             return View(yearsList);
+        }
+
+        public IActionResult GraphofYears(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var account = Constructor.getAccountDetails(id.Value);
+            var Invest = Constructor.investmentTracker(account);
+            var yearsList = Constructor.GetAllYears(Invest);
+            List<string> yearValue = new List<string>();
+
+            List<DataPoint> dataPoints = new List<DataPoint>();
+                   foreach (var year in yearsList)
+            {
+                dataPoints.Add(new DataPoint((Convert.ToInt32(year.Year)+ Convert.ToInt32(System.DateTime.Today.Year)), Convert.ToInt32(year.Value)));
+            }
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+
+
+            return View();
+        }
+        public IActionResult GraphofYearsInflation(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var account = Constructor.getAccountDetails(id.Value);
+            var Invest = Constructor.investmentTracker(account);
+            var yearsList = Constructor.GetAllYears(Invest);
+            List<string> yearValue = new List<string>();
+            double inflatiion = 1.0225;
+            List<DataPoint> dataPointsInflation = new List<DataPoint>();
+            foreach (var year in yearsList)
+            {
+                dataPointsInflation.Add(new DataPoint((Convert.ToInt32(year.Year) + Convert.ToInt32(System.DateTime.Today.Year)), Convert.ToInt32(year.Value * inflatiion)));
+                inflatiion += .0225;
+            }
+            ViewBag.DataPointsInflation = JsonConvert.SerializeObject(dataPointsInflation);
+
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            foreach (var year in yearsList)
+            {
+                dataPoints.Add(new DataPoint((Convert.ToInt32(year.Year) + Convert.ToInt32(System.DateTime.Today.Year)), Convert.ToInt32(year.Value)));
+            }
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            return View();
         }
 
     }
