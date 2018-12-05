@@ -21,21 +21,23 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalSaved)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Account.AccountNumber)
-            </td>
-            <td>
-                <a asp-action="yearsList" asp-route-id="@item.AccountNumber">List Years</a> |
-                <a asp-action="GraphofYears" asp-route-id="@item.AccountNumber">Graph Years</a> |
-                <a asp-action="GraphofYearsInflation" asp-route-id="@item.AccountNumber">Graph Years with inflation</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSaved)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.AccountNumber)
+                </td>
+                <td>
+                    <a asp-action="yearsList" asp-route-id="@item.AccountNumber">List Years</a> |
+                    <a asp-action="GraphofYears" asp-route-id="@item.AccountNumber">Graph Years</a> 
+                </td>
+            </tr>
         }
 
 
     </tbody>
 </table>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -51,7 +51,7 @@ namespace FinancialWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("AccountNumber,EmailAddress,FirstName,LastName,CreatedDate,YearsInPeriod,Income,Interest,PercentOfSalarySaved")] Account account)
+        public IActionResult Create([Bind("AccountNumber,EmailAddress,FirstName,LastName,CreatedDate,YearsInPeriod,Income,Interest,PercentOfSalarySaved,ExpectedInflation")] Account account)
         {
             if (account.EmailAddress == null)
             {
@@ -88,7 +88,7 @@ namespace FinancialWebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("AccountNumber,EmailAddress,FirstName,LastName,CreatedDate,YearsInPeriod,Income,Interest,PercentOfSalarySaved")] Account account)
+        public IActionResult Edit(int id, [Bind("AccountNumber,EmailAddress,FirstName,LastName,CreatedDate,YearsInPeriod,Income,Interest,PercentOfSalarySaved,ExpectedInflation")] Account account)
         {
             if (id != account.AccountNumber)
             {
@@ -184,28 +184,8 @@ namespace FinancialWebApp.Controllers
             return View(yearsList);
         }
 
+
         public IActionResult GraphofYears(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var account = Constructor.getAccountDetails(id.Value);
-            var Invest = Constructor.investmentTracker(account);
-            var yearsList = Constructor.GetAllYears(Invest);
-            List<string> yearValue = new List<string>();
-
-            List<DataPoint> dataPoints = new List<DataPoint>();
-                   foreach (var year in yearsList)
-            {
-                dataPoints.Add(new DataPoint((Convert.ToInt32(year.Year)+ Convert.ToInt32(System.DateTime.Today.Year)), Convert.ToInt32(year.Value)));
-            }
-            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
-
-
-            return View();
-        }
-        public IActionResult GraphofYearsInflation(int? id)
         {
             if (id == null)
             {

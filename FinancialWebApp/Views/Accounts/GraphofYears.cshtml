@@ -11,8 +11,8 @@
     <title>Index</title>
 </head>
 <body>
-        <div id="chartContainer"></div>
-
+    <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+    <div id="chartContainer2" style="height: 600px; width: 100%;"></div>
     <script type="text/javascript">
 
 		window.onload = function () {
@@ -32,13 +32,35 @@
 				}
 				]
             });
-           
-        
-            chart.render();
 
+
+            chart.render();
+            chart = {};
+			var chart = new CanvasJS.Chart("chartContainer2", {
+				theme: "dark2",
+				animationEnabled: true,
+				title: {
+					text: "Value of your investments over the years adjusted for inflation!"
+				},
+				subtitles: [
+					{ text: "Make adjustments to the Investment tracker to see how you could save more." }
+				],
+				data: [
+				{
+					type: "area", //change type to bar, line, area, pie, etc
+                    dataPoints: @Html.Raw(ViewBag.DataPointsInflation),
+				}
+				]
+            });
+
+
+            chart.render();
+            chart = {};
 		};
     </script>
 
-
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </body>
 </html>	

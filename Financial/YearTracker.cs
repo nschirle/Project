@@ -12,6 +12,8 @@ namespace Financial
         public int Year { get; set; }
         [DataType(DataType.Currency)]
         public double Value { get; set; }
+        [DataType(DataType.Currency)]
+        public double ValueInflated { get; set; }
         [ForeignKey("InvestmentTracker")]
         public int TrackingNumber { get; set; }
         public virtual InvestmentTracker InvestmentTracker { get; set; }

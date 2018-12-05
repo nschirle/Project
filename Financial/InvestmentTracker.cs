@@ -16,6 +16,8 @@ namespace Financial
         public int TrackingNumber { get; set; }
         [DataType(DataType.Currency)]
         public double TotalSaved { get; set; }
+        [DataType(DataType.Currency)]
+        public double TotalSavedInflated { get; set; }
         //public decimal[] YearlySaved { get; set; }
         [ForeignKey("Account")]
         public int AccountNumber { get; set; }

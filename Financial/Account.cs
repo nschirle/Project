@@ -20,6 +20,7 @@ namespace Financial
         
         public double Interest { get; set; }
         public double PercentOfSalarySaved { get; set; }
+        public double ExpectedInflation { get; set; }
         public virtual ICollection<InvestmentTracker> InvestmentTracker { get; set; }
         #endregion
 
