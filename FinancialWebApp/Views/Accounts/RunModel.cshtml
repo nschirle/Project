@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Financial.InvestmentTracker>
 
 @{
-    ViewData["Title"] = "RunModel";
+    ViewData["Title"] = "Total Saved";
 }
 <h2>RunModel</h2>
 
@@ -13,6 +13,9 @@
                 @Html.DisplayNameFor(model => model.TotalSaved)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.TotalSavedInflated)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Account)
             </th>
             <th></th>
@@ -21,18 +24,22 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalSaved)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Account.AccountNumber)
-                </td>
-                <td>
-                    <a asp-action="yearsList" asp-route-id="@item.AccountNumber">List Years</a> |
-                    <a asp-action="GraphofYears" asp-route-id="@item.AccountNumber">Graph Years</a> 
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSaved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalSavedInflated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account.AccountNumber)
+            </td>
+            <td>
+                <a asp-action="yearsList" asp-route-id="@item.AccountNumber">List Years</a> |
+                <a asp-action="GraphofYears" asp-route-id="@item.AccountNumber">Graph Years Area</a>
+                <a asp-action="GraphofYearsBar" asp-route-id="@item.AccountNumber">Graph Years Bar</a>
+            </td>
+        </tr>
         }
 
 

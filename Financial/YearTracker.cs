@@ -18,11 +18,12 @@ namespace Financial
         public int TrackingNumber { get; set; }
         public virtual InvestmentTracker InvestmentTracker { get; set; }
 
-        public YearTracker(int year, double value)
+        public YearTracker(int year, double value, double ValueInflated)
         {
             
             this.Year = year;
             this.Value = value;
+            this.ValueInflated = ValueInflated;
         }
     }
 }

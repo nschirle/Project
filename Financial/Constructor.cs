@@ -79,29 +79,35 @@ namespace Financial
         public static void UpdateTrackers(int? id)
         {
             var account = db.Accounts.FirstOrDefault(e => e.AccountNumber == id);
-           var temp = db.InvestmentTracker.Where(e => e.AccountNumber == id);
+            var InvestmentTrackers = db.InvestmentTracker.Where(e => e.AccountNumber == id);
             
-            foreach (var tracker in temp)
+            foreach (var tracker in InvestmentTrackers)
             {
-
+                double inflatiion = ((account.ExpectedInflation / 100) + 1);
                 double tempSalarySaved = 0;
                 for (int i = 0; i < account.YearsInPeriod; i++)
                 {
                     var saved = (account.Income * (account.PercentOfSalarySaved / 100));
                     var interest = ((account.Interest / 100) + 1);
-                     tempSalarySaved = ((saved + tempSalarySaved) *(interest));
-                    
-                    Constructor.AddYear(i, tempSalarySaved, tracker);
+                    tempSalarySaved = ((saved + tempSalarySaved) *(interest));
+                    var valueInflated = tempSalarySaved * inflatiion;
+                    inflatiion += (account.ExpectedInflation / 100);
+                    Constructor.AddYear(i, tempSalarySaved, tracker, valueInflated);
                     tracker.TotalSaved = tempSalarySaved;
+
+                    if (i == account.YearsInPeriod -1)
+                    {
+                        tracker.TotalSavedInflated = valueInflated;
+                    }
                 }
                 db.Update(tracker);
                
             }
             db.SaveChanges();
         }
-        public static void AddYear(int year, double value, InvestmentTracker invest)
+        public static void AddYear(int year, double value, InvestmentTracker invest, double valueInflation)
         {
-            YearTracker addyear = new YearTracker(year, value);
+            YearTracker addyear = new YearTracker(year, value, valueInflation);
             
             var DByear = db.YearTracker.FirstOrDefault(e => e.TrackingNumber == invest.TrackingNumber && e.Year == year);
             if (DByear == null)
@@ -115,6 +121,7 @@ namespace Financial
             {
                 DByear.Year = year;
                 DByear.Value = value;
+                DByear.ValueInflated = valueInflation;
                 db.YearTracker.Update(DByear);
                 db.SaveChanges();
             }

@@ -214,6 +214,35 @@ namespace FinancialWebApp.Controllers
             return View();
         }
 
+        public IActionResult GraphofYearsBar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var account = Constructor.getAccountDetails(id.Value);
+            var Invest = Constructor.investmentTracker(account);
+            var yearsList = Constructor.GetAllYears(Invest);
+            List<string> yearValue = new List<string>();
+            double inflatiion = ((account.ExpectedInflation / 100) + 1);
+            List<DataPoint> dataPointsInflation = new List<DataPoint>();
+            foreach (var year in yearsList)
+            {
+                dataPointsInflation.Add(new DataPoint((Convert.ToInt64(year.Year) + Convert.ToInt64(System.DateTime.Today.Year)), Convert.ToInt64(year.Value * inflatiion)));
+                inflatiion += (account.ExpectedInflation / 100);
+            }
+            ViewBag.DataPointsInflation = JsonConvert.SerializeObject(dataPointsInflation);
+
+            List<DataPoint> dataPoints = new List<DataPoint>();
+            foreach (var year in yearsList)
+            {
+                dataPoints.Add(new DataPoint((Convert.ToInt32(year.Year) + Convert.ToInt32(System.DateTime.Today.Year)), Convert.ToInt32(year.Value)));
+            }
+            ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            return View();
+        }
+
     }
 
     }

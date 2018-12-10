@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Financial.YearTracker>
 @{
-    ViewData["Title"] = "yearsList";
+    ViewData["Title"] = "Year List";
 }
 
 <h2>yearsList</h2>
@@ -16,26 +16,33 @@
                 @Html.DisplayNameFor(model => model.Value)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.ValueInflated)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.InvestmentTracker)
             </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Year)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Value)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvestmentTracker.TrackingNumber)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValueInflated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvestmentTracker.TrackingNumber)
+            </td>
 
-            </tr>
+        </tr>
         }
     </tbody>
 </table>
