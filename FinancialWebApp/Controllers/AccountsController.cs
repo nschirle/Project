@@ -191,16 +191,17 @@ namespace FinancialWebApp.Controllers
             {
                 return NotFound();
             }
+
             var account = Constructor.getAccountDetails(id.Value);
             var Invest = Constructor.investmentTracker(account);
             var yearsList = Constructor.GetAllYears(Invest);
             List<string> yearValue = new List<string>();
-            double inflatiion = 1.0225;
+            double inflatiion = ((account.ExpectedInflation /100)+1);
             List<DataPoint> dataPointsInflation = new List<DataPoint>();
             foreach (var year in yearsList)
             {
-                dataPointsInflation.Add(new DataPoint((Convert.ToInt32(year.Year) + Convert.ToInt32(System.DateTime.Today.Year)), Convert.ToInt32(year.Value * inflatiion)));
-                inflatiion += .0225;
+                dataPointsInflation.Add(new DataPoint((Convert.ToInt64(year.Year) + Convert.ToInt64(System.DateTime.Today.Year)), Convert.ToInt64(year.Value * inflatiion)));
+                inflatiion += (account.ExpectedInflation / 100);
             }
             ViewBag.DataPointsInflation = JsonConvert.SerializeObject(dataPointsInflation);
 

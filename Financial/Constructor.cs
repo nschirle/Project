@@ -35,6 +35,7 @@ namespace Financial
             oldAccount.FirstName = account.FirstName;
             oldAccount.LastName = account.LastName;
             oldAccount.EmailAddress = account.EmailAddress;
+            oldAccount.ExpectedInflation = account.ExpectedInflation;
             db.Update(oldAccount);
             db.SaveChanges();
 
